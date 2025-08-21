@@ -573,11 +573,24 @@ body {
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
+    transition: all 0.3s ease !important;
+    transform: translateY(0);
 }
 
-.highlight-card:hover {
-    transform: translateY(-5px);
+.highlights-grid .highlight-card:hover {
+    transform: translateY(-10px) !important;
+}
+
+.highlights-grid .highlight-card:nth-child(1):hover {
+    box-shadow: 0 25px 50px rgba(111, 66, 193, 0.3), 0 15px 35px rgba(0,0,0,0.1) !important;
+}
+
+.highlights-grid .highlight-card:nth-child(2):hover {
+    box-shadow: 0 25px 50px rgba(40, 167, 69, 0.3), 0 15px 35px rgba(0,0,0,0.1) !important;
+}
+
+.highlights-grid .highlight-card:nth-child(3):hover {
+    box-shadow: 0 25px 50px rgba(253, 126, 20, 0.3), 0 15px 35px rgba(0,0,0,0.1) !important;
 }
 
 .highlight-header {
@@ -587,15 +600,21 @@ body {
 }
 
 .highlight-header.card1 {
-    background: linear-gradient(135deg, #6f42c1, #007bff);
+    background: url('phone.png');
+    background-size: cover;
+    background-position: center;
 }
 
 .highlight-header.card2 {
-    background: #28a745;
+    background: url('stats.png');
+    background-size: cover;
+    background-position: center;
 }
 
 .highlight-header.card3 {
-    background: #fd7e14;
+    background: url('w.png');
+    background-size: cover;
+    background-position: center;
 }
 
 .highlight-icon {
@@ -603,6 +622,15 @@ body {
     top: 20px;
     left: 20px;
     font-size: 24px;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .highlight-number {
@@ -611,6 +639,15 @@ body {
     right: 20px;
     font-size: 24px;
     font-weight: bold;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .highlight-visual {
@@ -677,9 +714,9 @@ body {
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 40px;
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -697,6 +734,22 @@ body {
     justify-content: center;
     color: white;
     font-size: 32px;
+}
+
+.stat-item:nth-child(1) .stat-icon {
+    background: linear-gradient(135deg, #007bff, #6f42c1) !important;
+}
+
+.stat-item:nth-child(2) .stat-icon {
+    background: linear-gradient(135deg, #28a745, #20c997) !important;
+}
+
+.stat-item:nth-child(3) .stat-icon {
+    background: linear-gradient(135deg, #fd7e14, #dc3545) !important;
+}
+
+.stat-item:nth-child(4) .stat-icon {
+    background: linear-gradient(135deg, #e83e8c, #6f42c1) !important;
 }
 
 .stat-value {
