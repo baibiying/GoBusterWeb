@@ -20,18 +20,10 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# 确保在正确的目录中
-os.chdir(Path(__file__).parent)
-
 # 挂载静态文件 - 处理根目录下的所有文件
-app.mount("/", StaticFiles(directory=".", html=True), name="static")
+app.mount("/", StaticFiles(directory=".", html=True))
 
-# 根路径 - 返回index.html
-@app.get("/")
-async def read_index():
-    response = FileResponse("index.html")
-    response.headers["Content-Type"] = "text/html; charset=utf-8"
-    return response
+
 
 
 
