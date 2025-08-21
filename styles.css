@@ -704,19 +704,19 @@ body {
 }
 
 .highlight-header.card1 {
-    background: url('phone.png');
+    background: url('assets/phone.png');
     background-size: cover;
     background-position: center;
 }
 
 .highlight-header.card2 {
-    background: url('stats.png');
+    background: url('assets/stats.png');
     background-size: cover;
     background-position: center;
 }
 
 .highlight-header.card3 {
-    background: url('w.png');
+    background: url('assets/w.png');
     background-size: cover;
     background-position: center;
 }
