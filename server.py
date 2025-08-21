@@ -1,38 +1,39 @@
 #!/usr/bin/env python3
 """
-简单的HTTP服务器来运行MiniMax Agent网站
+FastAPI服务器来运行AdventureX水果忍者官网
 """
 
-import http.server
-import socketserver
+import uvicorn
 import webbrowser
 import os
 from pathlib import Path
+from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import threading
+import time
 
-PORT = 8080
+# 创建FastAPI应用
+app = FastAPI(
+    title="AdventureX水果忍者官网",
+    description="智能水果识别应用官网",
+    version="1.0.0"
+)
 
-class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
-    def end_headers(self):
-        self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
-        self.send_header('Pragma', 'no-cache')
-        self.send_header('Expires', '0')
-        super().end_headers()
+# 确保在正确的目录中
+os.chdir(Path(__file__).parent)
 
-def main():
-    # 确保在正确的目录中
-    os.chdir(Path(__file__).parent)
-    
-    with socketserver.TCPServer(("", PORT), MyHTTPRequestHandler) as httpd:
-        print(f"服务器运行在 http://localhost:{PORT}")
-        print("按 Ctrl+C 停止服务器")
-        
-        # 自动打开浏览器
-        webbrowser.open(f'http://localhost:{PORT}')
-        
-        try:
-            httpd.serve_forever()
-        except KeyboardInterrupt:
-            print("\n服务器已停止")
+# 挂载静态文件 - 处理根目录下的所有文件
+app.mount("/", StaticFiles(directory=".", html=True), name="static")
+
+# 根路径 - 返回index.html
+@app.get("/")
+async def read_index():
+    response = FileResponse("index.html")
+    response.headers["Content-Type"] = "text/html; charset=utf-8"
+    return response
+
+
 
 if __name__ == "__main__":
-    main() 
+    uvicorn.run(app, host="0.0.0.0", port=8080)

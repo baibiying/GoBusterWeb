@@ -68,9 +68,18 @@ AdventureX水果忍者是一款智能水果识别应用，通过AI技术帮助�
 - **前端**: HTML5, CSS3, JavaScript (原生，无依赖)
 - **样式**: 现代CSS特性 (Grid, Flexbox, 渐变, 动画)
 - **图标**: SVG矢量图标
-- **服务器**: Python HTTP服务器
+- **后端**: FastAPI (Python Web框架)
+- **服务器**: Uvicorn ASGI服务器
 
 ## 运行方式
+
+### 安装依赖
+
+```bash
+pip install -r requirements.txt
+```
+
+### 启动服务器
 
 ```bash
 python3 server.py
@@ -85,7 +94,8 @@ GoBusterWeb/
 ├── index.html          # 主页面文件
 ├── styles.css          # CSS样式文件 (1370行)
 ├── script.js           # JavaScript交互文件
-├── server.py           # Python HTTP服务器
+├── server.py           # FastAPI服务器
+├── requirements.txt    # Python依赖文件
 ├── assets/             # 图片资源文件夹
 │   ├── poster.png      # 产品海报图片
 │   ├── phone.png       # 手机界面展示图
