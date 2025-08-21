@@ -14,6 +14,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Close button functionality
+    const footerClose = document.querySelector('.footer-close');
+    if (footerClose) {
+        footerClose.addEventListener('click', function() {
+            this.parentElement.style.display = 'none';
+        });
+    }
+
+    // Add hover effects for download buttons
+    const downloadButtons = document.querySelectorAll('.download-btn');
+    downloadButtons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+
     // Add click effects for feature buttons
     const featureButtons = document.querySelectorAll('.feature-btn');
     featureButtons.forEach(button => {
@@ -62,44 +82,110 @@ document.addEventListener('DOMContentLoaded', function() {
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
+
+    // Add keyboard navigation
+    document.addEventListener('keydown', function(event) {
+        // ESC key to close footer
+        if (event.key === 'Escape') {
+            const footer = document.querySelector('.footer');
+            if (footer) {
+                footer.style.display = 'none';
+            }
+        }
+        
+        // Arrow keys for navigation
+        if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            const sections = ['#hero', '#features', '#highlights', '#process'];
+            const currentSection = getCurrentSection();
+            const currentIndex = sections.indexOf(currentSection);
+            const nextIndex = (currentIndex + 1) % sections.length;
+            const nextSection = document.querySelector(sections[nextIndex]);
+            if (nextSection) {
+                nextSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            const sections = ['#hero', '#features', '#highlights', '#process'];
+            const currentSection = getCurrentSection();
+            const currentIndex = sections.indexOf(currentSection);
+            const prevIndex = currentIndex <= 0 ? sections.length - 1 : currentIndex - 1;
+            const prevSection = document.querySelector(sections[prevIndex]);
+            if (prevSection) {
+                prevSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    });
+
+    // Helper function to get current section
+    function getCurrentSection() {
+        const sections = ['#hero', '#features', '#highlights', '#process'];
+        const scrollPosition = window.scrollY + window.innerHeight / 2;
+        
+        for (let section of sections) {
+            const element = document.querySelector(section);
+            if (element) {
+                const rect = element.getBoundingClientRect();
+                const elementTop = rect.top + window.scrollY;
+                const elementBottom = elementTop + rect.height;
+                
+                if (scrollPosition >= elementTop && scrollPosition <= elementBottom) {
+                    return section;
+                }
+            }
+        }
+        return '#hero';
+    }
+
+    // Add loading animation
+    window.addEventListener('load', function() {
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease';
+        
+        setTimeout(() => {
+            document.body.style.opacity = '1';
+        }, 100);
+    });
 });
 
-// Add CSS for ripple effect
-const style = document.createElement('style');
-style.textContent = `
-    .feature-btn {
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .ripple {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.4);
-        transform: scale(0);
-        animation: ripple-animation 0.6s linear;
-        pointer-events: none;
-    }
-    
-    @keyframes ripple-animation {
-        to {
-            transform: scale(4);
-            opacity: 0;
+    // Add CSS for ripple effect
+    const style = document.createElement('style');
+    style.textContent = `
+        .feature-btn {
+            position: relative;
+            overflow: hidden;
         }
-    }
-    
-    /* Enhanced feature card animations */
-    .feature-card {
-        transform-origin: center bottom;
-    }
-    
-    .feature-card:hover .feature-icon {
-        transform: scale(1.1);
-        transition: transform 0.3s ease;
-    }
-    
-    .feature-icon {
-        transition: transform 0.3s ease;
-    }
-`;
-document.head.appendChild(style); 
+        
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        /* Enhanced feature card animations */
+        .feature-card {
+            transform-origin: center bottom;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-icon {
+            transition: transform 0.3s ease;
+        }
+    `;
+    document.head.appendChild(style); 
