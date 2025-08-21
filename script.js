@@ -14,14 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Close button functionality
-    const footerClose = document.querySelector('.footer-close');
-    if (footerClose) {
-        footerClose.addEventListener('click', function() {
-            this.parentElement.style.display = 'none';
-        });
-    }
-
     // Add hover effects for download buttons
     const downloadButtons = document.querySelectorAll('.download-btn');
     downloadButtons.forEach(button => {
